@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Starlift — Onboarding</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1B3A6B;
+    --navy-dark: #112545;
+    --gold: #F5C518;
+    --aqua: #00B894;
+    --red: #E63946;
+    --grey-light: #F4F6FB;
+    --grey-mid: #E2E8F0;
+    --grey-text: #64748B;
+    --white: #FFFFFF;
+    --dark: #1A1A2E;
+    --radius: 12px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--grey-light);
+    color: var(--dark);
+    min-height: 100vh;
+  }
+
+  /* NAV */
+  nav {
+    background: var(--white);
+    border-bottom: 1px solid var(--grey-mid);
+    padding: 0 40px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 1px 8px rgba(0,0,0,0.05);
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+  }
+  .logo img {
+    height: 32px;
+    width: auto;
+    display: block;
+  }
+
+  /* LANG SWITCHER */
+  .lang-switcher {
+    display: flex;
+    gap: 4px;
+    background: var(--grey-light);
+    border-radius: 8px;
+    padding: 4px;
+  }
+  .lang-btn {
+    border: none;
+    background: transparent;
+    padding: 5px 8px;
+    border-radius: 6px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    line-height: 1;
+    opacity: 0.5;
+  }
+  .lang-btn.active {
+    background: var(--white);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    opacity: 1;
+  }
+  .lang-btn:hover {
+    opacity: 0.85;
+  }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, var(--navy) 0%, #2a5298 100%);
+    padding: 64px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -100px; right: -100px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(245,197,24,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; left: -60px;
+    width: 250px; height: 250px;
+    background: radial-gradient(circle, rgba(0,184,148,0.1) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero-logo {
+    margin-bottom: 28px;
+    display: flex;
+    justify-content: center;
+  }
+  .hero-logo img {
+    height: 80px;
+    width: auto;
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(245,197,24,0.15);
+    border: 1px solid rgba(245,197,24,0.3);
+    border-radius: 20px;
+    padding: 6px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--gold);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-family: 'Sora', sans-serif;
+    font-size: 36px;
+    font-weight: 800;
+    color: var(--white);
+    line-height: 1.15;
+    margin-bottom: 12px;
+    position: relative;
+    z-index: 1;
+  }
+  .hero h1 span { color: var(--gold); }
+  .hero p {
+    font-size: 16px;
+    color: rgba(255,255,255,0.65);
+    max-width: 520px;
+    margin: 0 auto;
+    line-height: 1.6;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* PROGRESS */
+  .progress-wrap {
+    background: var(--white);
+    border-bottom: 1px solid var(--grey-mid);
+    padding: 20px 40px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .progress-bar-bg {
+    flex: 1;
+    height: 4px;
+    background: var(--grey-mid);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--navy), var(--gold));
+    border-radius: 4px;
+    transition: width 0.4s ease;
+  }
+  .progress-text {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--navy);
+    white-space: nowrap;
+  }
+
+  /* STEPS */
+  .steps {
+    display: flex;
+    gap: 8px;
+    padding: 0 40px;
+    background: var(--white);
+    border-bottom: 1px solid var(--grey-mid);
+    overflow-x: auto;
+  }
+  .step-tab {
+    padding: 14px 20px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--grey-text);
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    cursor: default;
+    transition: all 0.2s;
+  }
+  .step-tab.active {
+    color: var(--navy);
+    border-bottom-color: var(--navy);
+  }
+  .step-tab.completed {
+    color: var(--aqua);
+  }
+
+  /* FORM CONTAINER */
+  .form-wrap {
+    max-width: 680px;
+    margin: 40px auto;
+    padding: 0 20px 80px;
+  }
+
+  /* SECTIONS */
+  .form-section {
+    display: none;
+    animation: fadeIn 0.3s ease;
+  }
+  .form-section.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-header {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 28px 32px;
+    margin-bottom: 16px;
+    border: 1px solid var(--grey-mid);
+  }
+  .section-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px; height: 28px;
+    background: var(--navy);
+    color: var(--white);
+    border-radius: 50%;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .section-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 4px;
+  }
+  .section-desc {
+    font-size: 14px;
+    color: var(--grey-text);
+    line-height: 1.5;
+  }
+
+  /* FIELDS */
+  .field-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    margin-bottom: 12px;
+    border: 1px solid var(--grey-mid);
+    transition: border-color 0.2s;
+  }
+  .field-card:focus-within {
+    border-color: var(--navy);
+    box-shadow: 0 0 0 3px rgba(27,58,107,0.06);
+  }
+
+  label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 8px;
+  }
+  label .required {
+    color: var(--gold);
+    margin-left: 2px;
+  }
+  .field-hint {
+    font-size: 12px;
+    color: var(--grey-text);
+    margin-bottom: 8px;
+    line-height: 1.4;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="url"],
+  input[type="tel"],
+  select,
+  textarea {
+    width: 100%;
+    border: 1px solid var(--grey-mid);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--dark);
+    background: var(--grey-light);
+    transition: all 0.2s;
+    outline: none;
+  }
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--navy);
+    background: var(--white);
+    box-shadow: 0 0 0 3px rgba(27,58,107,0.06);
+  }
+  textarea { resize: vertical; min-height: 90px; line-height: 1.5; }
+  select { cursor: pointer; }
+
+  /* TAG INPUT */
+  .tag-input-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 8px;
+    border: 1px solid var(--grey-mid);
+    border-radius: 8px;
+    background: var(--grey-light);
+    min-height: 44px;
+    cursor: text;
+    transition: all 0.2s;
+  }
+  .tag-input-wrap:focus-within {
+    border-color: var(--navy);
+    background: var(--white);
+    box-shadow: 0 0 0 3px rgba(27,58,107,0.06);
+  }
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--navy);
+    color: var(--white);
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .tag-remove {
+    cursor: pointer;
+    opacity: 0.7;
+    font-size: 14px;
+    line-height: 1;
+  }
+  .tag-remove:hover { opacity: 1; }
+  .tag-input {
+    border: none !important;
+    background: transparent !important;
+    padding: 4px 6px !important;
+    min-width: 120px;
+    flex: 1;
+    box-shadow: none !important;
+  }
+
+  /* RADIO GROUP */
+  .radio-group {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .radio-option {
+    flex: 1;
+    min-width: 100px;
+  }
+  .radio-option input { display: none; }
+  .radio-option label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 16px;
+    border: 2px solid var(--grey-mid);
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--grey-text);
+    transition: all 0.2s;
+    text-align: center;
+    margin: 0;
+  }
+  .radio-option input:checked + label {
+    border-color: var(--navy);
+    background: rgba(27,58,107,0.05);
+    color: var(--navy);
+    font-weight: 600;
+  }
+
+  /* CHECKBOX GROUP */
+  .checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border: 1px solid var(--grey-mid);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .checkbox-item:hover { border-color: var(--navy); background: rgba(27,58,107,0.02); }
+  .checkbox-item input[type="checkbox"] {
+    width: 16px; height: 16px;
+    accent-color: var(--navy);
+    cursor: pointer;
+  }
+  .checkbox-item span {
+    font-size: 14px;
+    color: var(--dark);
+  }
+
+  /* NAVIGATION BUTTONS */
+  .nav-buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+  }
+  .btn-back {
+    flex: 1;
+    padding: 14px;
+    border: 2px solid var(--grey-mid);
+    border-radius: var(--radius);
+    background: var(--white);
+    color: var(--grey-text);
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .btn-back:hover { border-color: var(--navy); color: var(--navy); }
+  .btn-next {
+    flex: 2;
+    padding: 14px;
+    border: none;
+    border-radius: var(--radius);
+    background: var(--navy);
+    color: var(--white);
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'DM Sans', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .btn-next:hover { background: var(--navy-dark); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(27,58,107,0.25); }
+  .btn-submit {
+    flex: 2;
+    padding: 14px;
+    border: none;
+    border-radius: var(--radius);
+    background: linear-gradient(135deg, var(--aqua), #00a880);
+    color: var(--white);
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'DM Sans', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .btn-submit:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(0,184,148,0.3); }
+
+  /* SUCCESS */
+  .success-screen {
+    display: none;
+    text-align: center;
+    padding: 60px 32px;
+    background: var(--white);
+    border-radius: 20px;
+    border: 1px solid var(--grey-mid);
+  }
+  .success-icon {
+    width: 72px; height: 72px;
+    background: rgba(0,184,148,0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 32px;
+  }
+  .success-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--navy);
+    margin-bottom: 8px;
+  }
+  .success-sub {
+    font-size: 15px;
+    color: var(--grey-text);
+    line-height: 1.6;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  /* ERROR */
+  .error-msg {
+    font-size: 12px;
+    color: var(--red);
+    margin-top: 6px;
+    display: none;
+  }
+  .field-error input,
+  .field-error textarea,
+  .field-error select {
+    border-color: var(--red) !important;
+  }
+
+  @media (max-width: 600px) {
+    nav { padding: 0 20px; }
+    .hero { padding: 40px 24px; }
+    .hero h1 { font-size: 26px; }
+    .progress-wrap { padding: 16px 20px; }
+    .steps { padding: 0 20px; }
+    .form-wrap { padding: 0 16px 80px; }
+    .section-header { padding: 20px; }
+    .field-card { padding: 16px; }
+    .radio-group { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">
+    <img src="logo senza sfondo.png" alt="Starlift" />
+  </a>
+  <div class="lang-switcher">
+    <button class="lang-btn active" onclick="setLang('it')">🇮🇹</button>
+    <button class="lang-btn" onclick="setLang('en')">🇬🇧</button>
+    <button class="lang-btn" onclick="setLang('es')">🇪🇸</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-logo">
+    <img src="Logo senza sfondo navy deep e midnight.png" alt="Starlift" />
+  </div>
+  <div class="hero-badge">
+    <svg width="13" height="15" viewBox="0 0 48 56" fill="none">
+      <polygon points="24,0 20,18 24,14 28,18" fill="#F5C518"/>
+      <polygon points="24,14 20,18 6,20 16,30 13,44 24,37 35,44 32,30 42,20 28,18" fill="#F5C518"/>
+    </svg>
+    <span data-i18n="badge">Piano Starter</span>
+  </div>
+  <h1 data-i18n="hero_title">Configura il tuo account<br><span>in 5 minuti</span></h1>
+  <p data-i18n="hero_sub">Raccontaci del tuo locale e del tuo stile. Creeremo le risposte perfette per le tue recensioni Google.</p>
+</div>
+
+<!-- PROGRESS -->
+<div class="progress-wrap">
+  <div class="progress-bar-bg">
+    <div class="progress-bar-fill" id="progressBar" style="width:20%"></div>
+  </div>
+  <div class="progress-text" id="progressText">1 / 5</div>
+</div>
+
+<!-- STEP TABS -->
+<div class="steps">
+  <div class="step-tab active" id="tab-1" data-i18n="tab1">Il locale</div>
+  <div class="step-tab" id="tab-2" data-i18n="tab2">La storia</div>
+  <div class="step-tab" id="tab-3" data-i18n="tab3">Come comunicate</div>
+  <div class="step-tab" id="tab-4" data-i18n="tab4">Recensioni</div>
+  <div class="step-tab" id="tab-5" data-i18n="tab5">Staff</div>
+</div>
+
+<!-- FORM -->
+<div class="form-wrap">
+<form id="onboardingForm" novalidate>
+
+  <!-- SECTION 1 — IL LOCALE -->
+  <div class="form-section active" id="section-1">
+    <div class="section-header">
+      <div class="section-number">1</div>
+      <div class="section-title" data-i18n="s1_title">Il tuo locale</div>
+      <div class="section-desc" data-i18n="s1_desc">Le informazioni base che ci permettono di identificare la tua attività.</div>
+    </div>
+
+    <div class="field-card" id="fc-nome">
+      <label><span data-i18n="f_nome">Nome del locale</span><span class="required">*</span></label>
+      <input type="text" id="nome" placeholder="es. KEIK International Bakery" />
+      <div class="error-msg" data-i18n="err_required">Questo campo è obbligatorio</div>
+    </div>
+
+    <div class="field-card" id="fc-tipo">
+      <label><span data-i18n="f_tipo">Tipo di attività</span><span class="required">*</span></label>
+      <select id="tipo">
+        <option value="" data-i18n="f_tipo_placeholder">Seleziona...</option>
+        <option value="ristorante" data-i18n="t_ristorante">Ristorante</option>
+        <option value="bar_cafe" data-i18n="t_bar">Bar / Caffè</option>
+        <option value="bakery" data-i18n="t_bakery">Bakery / Pasticceria</option>
+        <option value="bistrot" data-i18n="t_bistrot">Bistrot / All-day kitchen</option>
+        <option value="estetica" data-i18n="t_estetica">Centro Estetico / Spa</option>
+        <option value="hotel" data-i18n="t_hotel">Hotel / B&B</option>
+        <option value="negozio" data-i18n="t_negozio">Negozio / Retail</option>
+        <option value="altro" data-i18n="t_altro">Altro</option>
+      </select>
+      <div class="error-msg" data-i18n="err_required">Questo campo è obbligatorio</div>
+    </div>
+
+    <div class="field-card" id="fc-citta">
+      <label><span data-i18n="f_citta">Città e Paese</span><span class="required">*</span></label>
+      <input type="text" id="citta" placeholder="es. Modena, Italia" />
+      <div class="error-msg" data-i18n="err_required">Questo campo è obbligatorio</div>
+    </div>
+
+    <div class="field-card">
+      <label data-i18n="f_anno">Anno di fondazione</label>
+      <input type="text" id="anno" placeholder="es. 2013" />
+    </div>
+
+    <div class="field-card">
+      <label data-i18n="f_email">Email di contatto <span class="required">*</span></label>
+      <input type="email" id="email" placeholder="info@tuolocale.com" />
+      <div class="error-msg" data-i18n="err_email">Inserisci un'email valida</div>
+    </div>
+
+    <div class="field-card">
+      <label data-i18n="f_sito">Sito web</label>
+      <input type="url" id="sito" placeholder="https://www.tuolocale.com" />
+    </div>
+
+    <div class="nav-buttons">
+      <button type="button" class="btn-next" onclick="nextSection(1)">
+        <span data-i18n="btn_next">Avanti</span> →
+      </button>
+    </div>
+  </div>
+
+  <!-- SECTION 2 — LA STORIA -->
+  <div class="form-section" id="section-2">
+    <div class="section-header">
+      <div class="section-number">2</div>
+      <div class="section-title" data-i18n="s2_title">La tua storia</div>
+      <div class="section-desc" data-i18n="s2_desc">Cosa rende unico il tuo locale? Queste informazioni arricchiranno ogni risposta generata.</div>
+    </div>
+
+    <div class="field-card" id="fc-unicita">
+      <label><span data-i18n="f_unicita">Cosa vi rende unici?</span><span class="required">*</span></label>
+      <div class="field-hint" data-i18n="f_unicita_hint">Storia, valori, cosa distingue il vostro locale dalla concorrenza (2-3 righe)</div>
+      <textarea id="unicita" placeholder="es. Siamo stati i primi a portare il brunch a Modena nel 2013, con una cucina ispirata ai viaggi e alle culture del mondo..."></textarea>
+      <div class="error-msg" data-i18n="err_required">Questo campo è obbligatorio</div>
+    </div>
+
+    <div class="field-card">
+      <label data-i18n="f_prodotti">Prodotti / Servizi di punta (max 3)</label>
+      <div class="field-hint" data-i18n="f_prodotti_hint">Scrivi e premi Invio per aggiungere</div>
+      <div class="tag-input-wrap" id="prodotti-wrap" onclick="document.getElementById('prodotti-input').focus()">
+        <input type="text" id="prodotti-input" class="tag-input" placeholder="es. Red Velvet..." onkeydown="addTag(event,'prodotti')" />
+      </div>
+      <input type="hidden" id="prodotti" />
+    </div>
+
+    <div class="field-card">
+      <label data-i18n="f_primato">Siete i primi o i migliori in qualcosa nella vostra città?</label>
+      <input type="text" id="primato" placeholder="es. Primi a fare brunch a Modena" />
+    </div>
+
+    <div class="field-card">
+      <label data-i18n="f_intolleranze">Attenzione speciale a intolleranze o esigenze alimentari?</label>
+      <div class="checkbox-group">
+        <label class="checkbox-item"><input type="checkbox" value="gluten_free" onchange="updateCheckbox('intolleranze')"> <span data-i18n="i_gluten">Senza glutine</span></label>
+        <label class="checkbox-item"><input type="checkbox" value="vegan" onchange="updateCheckbox('intolleranze')"> <span data-i18n="i_vegan">Vegan</span></label>
+        <label class="checkbox-item"><input type="checkbox" value="vegetarian" onchange="updateCheckbox('intolleranze')"> <span data-i18n="i_veg">Vegetariano</span></label>
+        <label class="checkbox-item"><input type="checkbox" value="lactose_free" onchange="updateCheckbox('intolleranze')"> <span data-i18n="i_lactose">Senza lattosio</span></label>
+        <label class="checkbox-item"><input type="checkbox" value="halal" onchange="updateCheckbox('intolleranze')"> <span>Halal</span></label>
+      </div>
+      <input type="hidden" id="intolleranze" />
+    </div>
+
+    <div class="nav-buttons">
+      <button type="button" class="btn-back" onclick="prevSection(2)">← <span data-i18n="btn_back">Indietro</span></button>
+      <button type="button" class="btn-next" onclick="nextSection(2)"><span data-i18n="btn_next">Avanti</span> →</button>
+    </div>
+  </div>
+
+  <!-- SECTION 3 — COME COMUNICATE -->
+  <div class="form-section" id="section-3">
+    <div class="section-header">
+      <div class="section-number">3</div>
+      <div class="section-title" data-i18n="s3_title">Come comunicate</div>
+      <div class="section-desc" data-i18n="s3_desc">Il tono di voce è fondamentale. Le risposte suoneranno esattamente come voi.</div>
+    </div>
+
+    <div class="field-card" id="fc-pronome">
+      <label><span data-i18n="f_pronome">Come vi rivolgete ai clienti?</span><span class="required">*</span></label>
+      <div class="radio-group">
+        <label class="radio-option"><input type="radio" name="pronome" value="tu" onchange="document.getElementById('pronome').value='tu'"><label data-i18n="p_tu">Tu (informale)</label></label>
+        <label class="radio-option"><input type="radio" name="pronome" value="lei" onchange="document.getElementById('pronome').value='lei'"><label data-i18n="p_lei">Lei (formale)</label></label>
+        <label class="radio-option"><input type="radio" name="pronome" value="voi" onchange="document.getElementById('pronome').value='voi'"><label data-i18n="p_voi">Voi (plurale)</label></label>
+      </div>
+      <input type="hidden" id="pronome" />
+      <div class="error-msg" data-i18n="err_required">Seleziona un'opzione</div>
+    </div>
+
+    <div class="field-card" id="fc-aggettivi">
+      <label><span data-i18n="f_aggettivi">3 aggettivi che descrivono il vostro stile comunicativo</span><span class="required">*</span></label>
+      <div class="field-hint" data-i18n="f_aggettivi_hint">Scrivi e premi Invio (max 3)</div>
+      <div class="tag-input-wrap" id="aggettivi-wrap" onclick="document.getElementById('aggettivi-input').focus()">
+        <input type="text" id="aggettivi-input" class="tag-input" placeholder="es. caldo, spontaneo, autentico..." onkeydown="addTag(event,'aggettivi',3)" />
+      </div>
+      <input type="hidden" id="aggettivi" />
+      <div class="error-msg" data-i18n="err_aggettivi">Aggiungi almeno 1 aggettivo</div>
+    </div>
+
+    <div class="field-card" id="fc-mai_dire">
+      <label><span data-i18n="f_mai_dire">Una frase che NON direste mai</span><span class="required">*</span></label>
+      <div class="field-hint" data-i18n="f_mai_dire_hint">es. "Vi aspettiamo", "Gentile cliente"...</div>
+      <input type="text" id="mai_dire" placeholder="es. Vi aspettiamo" />
+      <div class="error-msg" data-i18n="err_required">Questo campo è obbligatorio</div>
+    </div>
+
+    <div class="field-card">
+      <label data-i18n="f_esempio">Esempio di comunicazione che vi piace</label>
+      <div class="field-hint" data-i18n="f_esempio_hint">Una risposta, un post, una frase di un brand che ammiri (opzionale)</div>
+      <textarea id="esempio" placeholder="es. 'Grazie Marco, la tua visita ci ha illuminato la giornata!'"></textarea>
+    </div>
+
+    <div class="nav-buttons">
+      <button type="button" class="btn-back" onclick="prevSection(3)">← <span data-i18n="btn_back">Indietro</span></button>
+      <button type="button" class="btn-next" onclick="nextSection(3)"><span data-i18n="btn_next">Avanti</span> →</button>
+    </div>
+  </div>
+
+  <!-- SECTION 4 — RECENSIONI -->
+  <div class="form-section" id="section-4">
+    <div class="section-header">
+      <div class="section-number">4</div>
+      <div class="section-title" data-i18n="s4_title">Gestione recensioni</div>
+      <div class="section-desc" data-i18n="s4_desc">Come volete gestire i feedback dei clienti, positivi e negativi.</div>
+    </div>
+
+    <div class="field-card" id="fc-firma">
+      <label><span data-i18n="f_firma">Chi firma le risposte?</span><span class="required">*</span></label>
+      <div class="field-hint" data-i18n="f_firma_hint">Nome della persona o nome del locale</div>
+      <input type="text" id="firma" placeholder="es. Elena, oppure Il Team KEIK" />
+      <div class="error-msg" data-i18n="err_required">Questo campo è obbligatorio</div>
+    </div>
+
+    <div class="field-card" id="fc-firma_negativa">
+      <label><span data-i18n="f_firma_neg">Firma per recensioni negative (≤3 stelle)</span><span class="required">*</span></label>
+      <div class="field-hint" data-i18n="f_firma_neg_hint">Può essere la stessa o diversa — spesso un nome personale trasmette più empatia</div>
+      <input type="text" id="firma_negativa" placeholder="es. Elena" />
+      <div class="error-msg" data-i18n="err_required">Questo campo è obbligatorio</div>
+    </div>
+
+    <div class="field-card" id="fc-tono_negativo">
+      <label><span data-i18n="f_tono_neg">Come gestire le critiche?</span><span class="required">*</span></label>
+      <div class="radio-group">
+        <label class="radio-option"><input type="radio" name="tono_neg" value="empatico" onchange="document.getElementById('tono_negativo').value='empatico'"><label data-i18n="tn_empatico">Empatico e personale</label></label>
+        <label class="radio-option"><input type="radio" name="tono_neg" value="diretto" onchange="document.getElementById('tono_negativo').value='diretto'"><label data-i18n="tn_diretto">Diretto e risolutivo</label></label>
+        <label class="radio-option"><input type="radio" name="tono_neg" value="formale" onchange="document.getElementById('tono_negativo').value='formale'"><label data-i18n="tn_formale">Professionale</label></label>
+      </div>
+      <input type="hidden" id="tono_negativo" />
+      <div class="error-msg" data-i18n="err_required">Seleziona un'opzione</div>
+    </div>
+
+    <div class="field-card">
+      <label data-i18n="f_contatto_neg">Contatto per clienti insoddisfatti</label>
+      <div class="field-hint" data-i18n="f_contatto_neg_hint">Email o telefono da includere nelle risposte negative</div>
+      <input type="text" id="contatto_neg" placeholder="es. info@tuolocale.com oppure +39 059 123456" />
+    </div>
+
+    <div class="field-card">
+      <label data-i18n="f_tagline">Frase di chiusura per recensioni positive</label>
+      <div class="field-hint" data-i18n="f_tagline_hint">La frase con cui concludere ogni risposta positiva</div>
+      <input type="text" id="tagline" placeholder="es. Viaggia col gusto 🌍" />
+    </div>
+
+    <div class="nav-buttons">
+      <button type="button" class="btn-back" onclick="prevSection(4)">← <span data-i18n="btn_back">Indietro</span></button>
+      <button type="button" class="btn-next" onclick="nextSection(4)"><span data-i18n="btn_next">Avanti</span> →</button>
+    </div>
+  </div>
+
+  <!-- SECTION 5 — STAFF -->
+  <div class="form-section" id="section-5">
+    <div class="section-header">
+      <div class="section-number">5</div>
+      <div class="section-title" data-i18n="s5_title">Staff</div>
+      <div class="section-desc" data-i18n="s5_desc">I nomi del personale a contatto con i clienti. Useremo questi per identificare le menzioni nelle recensioni.</div>
+    </div>
+
+    <div class="field-card">
+      <label data-i18n="f_staff">Nomi del personale</label>
+      <div class="field-hint" data-i18n="f_staff_hint">Scrivi ogni nome e premi Invio</div>
+      <div class="tag-input-wrap" id="staff-wrap" onclick="document.getElementById('staff-input').focus()">
+        <input type="text" id="staff-input" class="tag-input" placeholder="es. Samantha..." onkeydown="addTag(event,'staff')" />
+      </div>
+      <input type="hidden" id="staff" />
+    </div>
+
+    <div class="field-card">
+      <label data-i18n="f_gbp">Link Google Business Profile</label>
+      <div class="field-hint" data-i18n="f_gbp_hint">L'URL del tuo profilo Google (opzionale, aiuta la configurazione)</div>
+      <input type="url" id="gbp" placeholder="https://maps.google.com/..." />
+    </div>
+
+    <div class="field-card">
+      <label data-i18n="f_note">Note aggiuntive</label>
+      <div class="field-hint" data-i18n="f_note_hint">Qualsiasi altra informazione utile per personalizzare le risposte</div>
+      <textarea id="note" placeholder="es. Siamo chiusi il lunedì sera. Abbiamo un giardino estivo aperto da aprile..."></textarea>
+    </div>
+
+    <div class="nav-buttons">
+      <button type="button" class="btn-back" onclick="prevSection(5)">← <span data-i18n="btn_back">Indietro</span></button>
+      <button type="button" class="btn-submit" onclick="submitForm()">
+        ✓ <span data-i18n="btn_submit">Invia e attiva Starlift</span>
+      </button>
+    </div>
+  </div>
+
+</form>
+
+<!-- SUCCESS -->
+<div class="success-screen" id="successScreen">
+  <div class="success-icon">
+    <img src="Icona Starlift senza sfondo.png" alt="Starlift" style="width:48px;height:48px;object-fit:contain;" />
+  </div>
+  <div class="success-title" data-i18n="success_title">Perfetto! Sei a bordo.</div>
+  <p class="success-sub" data-i18n="success_sub">Abbiamo ricevuto le tue informazioni. Riceverai una email di conferma a breve con il riepilogo della tua configurazione.</p>
+</div>
+
+</div><!-- /form-wrap -->
+
+<script>
+// ============ I18N ============
+const i18n = {
+  it: {
+    badge: 'Piano Starter',
+    hero_title: 'Configura il tuo account<br><span>in 5 minuti</span>',
+    hero_sub: 'Raccontaci del tuo locale e del tuo stile. Creeremo le risposte perfette per le tue recensioni Google.',
+    tab1: 'Il locale', tab2: 'La storia', tab3: 'Come comunicate', tab4: 'Recensioni', tab5: 'Staff',
+    s1_title: 'Il tuo locale', s1_desc: 'Le informazioni base che ci permettono di identificare la tua attività.',
+    s2_title: 'La tua storia', s2_desc: 'Cosa rende unico il tuo locale? Queste informazioni arricchiranno ogni risposta generata.',
+    s3_title: 'Come comunicate', s3_desc: 'Il tono di voce è fondamentale. Le risposte suoneranno esattamente come voi.',
+    s4_title: 'Gestione recensioni', s4_desc: 'Come volete gestire i feedback dei clienti, positivi e negativi.',
+    s5_title: 'Staff', s5_desc: 'I nomi del personale a contatto con i clienti.',
+    f_nome: 'Nome del locale', f_tipo: 'Tipo di attività', f_tipo_placeholder: 'Seleziona...',
+    f_citta: 'Città e Paese', f_anno: 'Anno di fondazione', f_email: 'Email di contatto',
+    f_sito: 'Sito web', f_unicita: 'Cosa vi rende unici?',
+    f_unicita_hint: 'Storia, valori, cosa distingue il vostro locale dalla concorrenza (2-3 righe)',
+    f_prodotti: 'Prodotti / Servizi di punta (max 3)', f_prodotti_hint: 'Scrivi e premi Invio per aggiungere',
+    f_primato: 'Siete i primi o i migliori in qualcosa nella vostra città?',
+    f_intolleranze: 'Attenzione speciale a intolleranze?',
+    i_gluten: 'Senza glutine', i_vegan: 'Vegan', i_veg: 'Vegetariano', i_lactose: 'Senza lattosio',
+    f_pronome: 'Come vi rivolgete ai clienti?',
+    p_tu: 'Tu (informale)', p_lei: 'Lei (formale)', p_voi: 'Voi (plurale)',
+    f_aggettivi: '3 aggettivi che descrivono il vostro stile',
+    f_aggettivi_hint: 'Scrivi e premi Invio (max 3)',
+    f_mai_dire: 'Una frase che NON direste mai',
+    f_mai_dire_hint: 'es. "Vi aspettiamo", "Gentile cliente"...',
+    f_esempio: 'Esempio di comunicazione che vi piace',
+    f_esempio_hint: 'Una risposta, un post, una frase di un brand che ammiri (opzionale)',
+    f_firma: 'Chi firma le risposte?', f_firma_hint: 'Nome della persona o nome del locale',
+    f_firma_neg: 'Firma per recensioni negative (≤3 stelle)',
+    f_firma_neg_hint: 'Può essere la stessa o diversa',
+    f_tono_neg: 'Come gestire le critiche?',
+    tn_empatico: 'Empatico e personale', tn_diretto: 'Diretto e risolutivo', tn_formale: 'Professionale',
+    f_contatto_neg: 'Contatto per clienti insoddisfatti',
+    f_contatto_neg_hint: 'Email o telefono da includere nelle risposte negative',
+    f_tagline: 'Frase di chiusura per recensioni positive',
+    f_tagline_hint: 'La frase con cui concludere ogni risposta positiva',
+    f_staff: 'Nomi del personale', f_staff_hint: 'Scrivi ogni nome e premi Invio',
+    f_gbp: 'Link Google Business Profile', f_gbp_hint: "L'URL del tuo profilo Google",
+    f_note: 'Note aggiuntive', f_note_hint: 'Qualsiasi altra informazione utile',
+    t_ristorante: 'Ristorante', t_bar: 'Bar / Caffè', t_bakery: 'Bakery / Pasticceria',
+    t_bistrot: 'Bistrot / All-day kitchen', t_estetica: 'Centro Estetico / Spa',
+    t_hotel: 'Hotel / B&B', t_negozio: 'Negozio / Retail', t_altro: 'Altro',
+    btn_next: 'Avanti', btn_back: 'Indietro', btn_submit: 'Invia e attiva Starlift',
+    err_required: 'Questo campo è obbligatorio', err_email: "Inserisci un'email valida",
+    err_aggettivi: 'Aggiungi almeno 1 aggettivo',
+    success_title: 'Perfetto! Sei a bordo.',
+    success_sub: 'Abbiamo ricevuto le tue informazioni. Riceverai una email di conferma a breve.'
+  },
+  en: {
+    badge: 'Starter Plan',
+    hero_title: 'Set up your account<br><span>in 5 minutes</span>',
+    hero_sub: 'Tell us about your business and your style. We\'ll create the perfect responses for your Google reviews.',
+    tab1: 'The business', tab2: 'Your story', tab3: 'Communication', tab4: 'Reviews', tab5: 'Staff',
+    s1_title: 'Your business', s1_desc: 'Basic information that helps us identify your business.',
+    s2_title: 'Your story', s2_desc: 'What makes your business unique? This will enrich every generated response.',
+    s3_title: 'Communication style', s3_desc: 'Tone of voice is key. Responses will sound exactly like you.',
+    s4_title: 'Review management', s4_desc: 'How do you want to handle customer feedback, positive and negative.',
+    s5_title: 'Staff', s5_desc: 'Names of staff in contact with customers.',
+    f_nome: 'Business name', f_tipo: 'Business type', f_tipo_placeholder: 'Select...',
+    f_citta: 'City and Country', f_anno: 'Founded year', f_email: 'Contact email',
+    f_sito: 'Website', f_unicita: 'What makes you unique?',
+    f_unicita_hint: 'History, values, what sets you apart (2-3 lines)',
+    f_prodotti: 'Top products / services (max 3)', f_prodotti_hint: 'Type and press Enter to add',
+    f_primato: 'Are you the first or best at something in your city?',
+    f_intolleranze: 'Special attention to dietary requirements?',
+    i_gluten: 'Gluten free', i_vegan: 'Vegan', i_veg: 'Vegetarian', i_lactose: 'Lactose free',
+    f_pronome: 'How do you address customers?',
+    p_tu: 'You (informal)', p_lei: 'You (formal)', p_voi: 'You (plural)',
+    f_aggettivi: '3 adjectives describing your communication style',
+    f_aggettivi_hint: 'Type and press Enter (max 3)',
+    f_mai_dire: 'A phrase you would NEVER say',
+    f_mai_dire_hint: 'e.g. "We look forward to seeing you", "Dear customer"...',
+    f_esempio: 'Example of communication you like',
+    f_esempio_hint: 'A response, post, or phrase from a brand you admire (optional)',
+    f_firma: 'Who signs the responses?', f_firma_hint: 'Person name or business name',
+    f_firma_neg: 'Signature for negative reviews (≤3 stars)',
+    f_firma_neg_hint: 'Can be the same or different',
+    f_tono_neg: 'How to handle criticism?',
+    tn_empatico: 'Empathetic and personal', tn_diretto: 'Direct and solution-focused', tn_formale: 'Professional',
+    f_contatto_neg: 'Contact for dissatisfied customers',
+    f_contatto_neg_hint: 'Email or phone to include in negative responses',
+    f_tagline: 'Closing phrase for positive reviews',
+    f_tagline_hint: 'The phrase to end every positive response',
+    f_staff: 'Staff names', f_staff_hint: 'Type each name and press Enter',
+    f_gbp: 'Google Business Profile link', f_gbp_hint: 'Your Google profile URL',
+    f_note: 'Additional notes', f_note_hint: 'Any other useful information',
+    t_ristorante: 'Restaurant', t_bar: 'Bar / Café', t_bakery: 'Bakery / Pastry shop',
+    t_bistrot: 'Bistrot / All-day kitchen', t_estetica: 'Beauty Center / Spa',
+    t_hotel: 'Hotel / B&B', t_negozio: 'Shop / Retail', t_altro: 'Other',
+    btn_next: 'Next', btn_back: 'Back', btn_submit: 'Submit and activate Starlift',
+    err_required: 'This field is required', err_email: 'Enter a valid email',
+    err_aggettivi: 'Add at least 1 adjective',
+    success_title: 'Perfect! You\'re on board.',
+    success_sub: 'We\'ve received your information. You\'ll receive a confirmation email shortly.'
+  },
+  es: {
+    badge: 'Plan Starter',
+    hero_title: 'Configura tu cuenta<br><span>en 5 minutos</span>',
+    hero_sub: 'Cuéntanos sobre tu negocio y tu estilo. Crearemos las respuestas perfectas para tus reseñas de Google.',
+    tab1: 'El negocio', tab2: 'Tu historia', tab3: 'Comunicación', tab4: 'Reseñas', tab5: 'Equipo',
+    s1_title: 'Tu negocio', s1_desc: 'La información básica que nos permite identificar tu negocio.',
+    s2_title: 'Tu historia', s2_desc: '¿Qué hace único a tu negocio? Esto enriquecerá cada respuesta generada.',
+    s3_title: 'Estilo de comunicación', s3_desc: 'El tono de voz es fundamental. Las respuestas sonarán exactamente como tú.',
+    s4_title: 'Gestión de reseñas', s4_desc: 'Cómo quieres gestionar los comentarios de los clientes.',
+    s5_title: 'Equipo', s5_desc: 'Nombres del personal en contacto con los clientes.',
+    f_nome: 'Nombre del negocio', f_tipo: 'Tipo de negocio', f_tipo_placeholder: 'Selecciona...',
+    f_citta: 'Ciudad y País', f_anno: 'Año de fundación', f_email: 'Email de contacto',
+    f_sito: 'Sitio web', f_unicita: '¿Qué os hace únicos?',
+    f_unicita_hint: 'Historia, valores, lo que os distingue de la competencia (2-3 líneas)',
+    f_prodotti: 'Productos / Servicios principales (máx 3)', f_prodotti_hint: 'Escribe y pulsa Enter para añadir',
+    f_primato: '¿Sois los primeros o mejores en algo en vuestra ciudad?',
+    f_intolleranze: '¿Atención especial a intolerancias o necesidades dietéticas?',
+    i_gluten: 'Sin gluten', i_vegan: 'Vegano', i_veg: 'Vegetariano', i_lactose: 'Sin lactosa',
+    f_pronome: '¿Cómo os dirigís a los clientes?',
+    p_tu: 'Tú (informal)', p_lei: 'Usted (formal)', p_voi: 'Vosotros (plural)',
+    f_aggettivi: '3 adjetivos que describan vuestro estilo comunicativo',
+    f_aggettivi_hint: 'Escribe y pulsa Enter (máx 3)',
+    f_mai_dire: 'Una frase que NUNCA diríais',
+    f_mai_dire_hint: 'ej. "Os esperamos", "Estimado cliente"...',
+    f_esempio: 'Ejemplo de comunicación que os gusta',
+    f_esempio_hint: 'Una respuesta, post o frase de una marca que admires (opcional)',
+    f_firma: '¿Quién firma las respuestas?', f_firma_hint: 'Nombre de la persona o del negocio',
+    f_firma_neg: 'Firma para reseñas negativas (≤3 estrellas)',
+    f_firma_neg_hint: 'Puede ser la misma o diferente',
+    f_tono_neg: '¿Cómo gestionar las críticas?',
+    tn_empatico: 'Empático y personal', tn_diretto: 'Directo y resolutivo', tn_formale: 'Profesional',
+    f_contatto_neg: 'Contacto para clientes insatisfechos',
+    f_contatto_neg_hint: 'Email o teléfono para incluir en respuestas negativas',
+    f_tagline: 'Frase de cierre para reseñas positivas',
+    f_tagline_hint: 'La frase con la que cerrar cada respuesta positiva',
+    f_staff: 'Nombres del personal', f_staff_hint: 'Escribe cada nombre y pulsa Enter',
+    f_gbp: 'Enlace Google Business Profile', f_gbp_hint: 'La URL de tu perfil de Google',
+    f_note: 'Notas adicionales', f_note_hint: 'Cualquier otra información útil',
+    t_ristorante: 'Restaurante', t_bar: 'Bar / Cafetería', t_bakery: 'Panadería / Pastelería',
+    t_bistrot: 'Bistró / All-day kitchen', t_estetica: 'Centro Estético / Spa',
+    t_hotel: 'Hotel / B&B', t_negozio: 'Tienda / Retail', t_altro: 'Otro',
+    btn_next: 'Siguiente', btn_back: 'Atrás', btn_submit: 'Enviar y activar Starlift',
+    err_required: 'Este campo es obligatorio', err_email: 'Introduce un email válido',
+    err_aggettivi: 'Añade al menos 1 adjetivo',
+    success_title: '¡Perfecto! Estás a bordo.',
+    success_sub: 'Hemos recibido tu información. Recibirás un email de confirmación en breve.'
+  }
+};
+
+let currentLang = 'it';
+let currentSection = 1;
+const totalSections = 5;
+const tags = { prodotti: [], aggettivi: [], staff: [] };
+
+function setLang(lang) {
+  currentLang = lang;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector(`.lang-btn[onclick="setLang('${lang}')"]`).classList.add('active');
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (i18n[lang][key] !== undefined) {
+      if (el.tagName === 'OPTION') el.textContent = i18n[lang][key];
+      else el.innerHTML = i18n[lang][key];
+    }
+  });
+}
+
+function addTag(event, type, max) {
+  if (event.key !== 'Enter') return;
+  event.preventDefault();
+  const input = document.getElementById(type + '-input');
+  const val = input.value.trim();
+  if (!val) return;
+  if (max && tags[type].length >= max) return;
+  if (tags[type].includes(val)) { input.value = ''; return; }
+  tags[type].push(val);
+  const wrap = document.getElementById(type + '-wrap');
+  const tag = document.createElement('span');
+  tag.className = 'tag';
+  tag.innerHTML = val + '<span class="tag-remove" onclick="removeTag(\'' + type + '\',\'' + val.replace(/'/g,"\'") + '\',this)">×</span>';
+  wrap.insertBefore(tag, input);
+  input.value = '';
+  document.getElementById(type).value = tags[type].join(', ');
+}
+
+function removeTag(type, val, el) {
+  tags[type] = tags[type].filter(t => t !== val);
+  el.parentElement.remove();
+  document.getElementById(type).value = tags[type].join(', ');
+}
+
+function updateCheckbox(id) {
+  const vals = Array.from(document.querySelectorAll(`input[onchange="updateCheckbox('${id}')"]`))
+    .filter(c => c.checked).map(c => c.value);
+  document.getElementById(id).value = vals.join(', ');
+}
+
+function validateSection(n) {
+  let valid = true;
+  const rules = {
+    1: [
+      {id:'nome', type:'text'},
+      {id:'tipo', type:'select'},
+      {id:'citta', type:'text'},
+      {id:'email', type:'email'}
+    ],
+    2: [{id:'unicita', type:'text'}],
+    3: [
+      {id:'pronome', type:'hidden'},
+      {id:'aggettivi', type:'tags'},
+      {id:'mai_dire', type:'text'}
+    ],
+    4: [
+      {id:'firma', type:'text'},
+      {id:'firma_negativa', type:'text'},
+      {id:'tono_negativo', type:'hidden'}
+    ],
+    5: []
+  };
+
+  (rules[n] || []).forEach(rule => {
+    const el = document.getElementById(rule.id);
+    const fc = document.getElementById('fc-' + rule.id);
+    let val = el ? el.value.trim() : '';
+    let ok = true;
+
+    if (rule.type === 'email') {
+      ok = val && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+    } else if (rule.type === 'tags') {
+      ok = tags[rule.id] && tags[rule.id].length > 0;
+    } else {
+      ok = val !== '';
+    }
+
+    if (fc) {
+      fc.classList.toggle('field-error', !ok);
+      const errEl = fc.querySelector('.error-msg');
+      if (errEl) errEl.style.display = ok ? 'none' : 'block';
+    }
+    if (!ok) valid = false;
+  });
+
+  return valid;
+}
+
+function nextSection(n) {
+  if (!validateSection(n)) return;
+  goToSection(n + 1);
+}
+
+function prevSection(n) {
+  goToSection(n - 1);
+}
+
+function goToSection(n) {
+  document.getElementById('section-' + currentSection).classList.remove('active');
+  document.getElementById('tab-' + currentSection).classList.remove('active');
+  if (currentSection < n) document.getElementById('tab-' + currentSection).classList.add('completed');
+  currentSection = n;
+  document.getElementById('section-' + n).classList.add('active');
+  document.getElementById('tab-' + n).classList.add('active');
+  const pct = (n / totalSections * 100);
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressText').textContent = n + ' / ' + totalSections;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function collectData() {
+  return {
+    lingua: currentLang,
+    nome: document.getElementById('nome').value,
+    tipo: document.getElementById('tipo').value,
+    citta: document.getElementById('citta').value,
+    anno: document.getElementById('anno').value,
+    email: document.getElementById('email').value,
+    sito: document.getElementById('sito').value,
+    unicita: document.getElementById('unicita').value,
+    prodotti: document.getElementById('prodotti').value,
+    primato: document.getElementById('primato').value,
+    intolleranze: document.getElementById('intolleranze').value,
+    pronome: document.getElementById('pronome').value,
+    aggettivi: document.getElementById('aggettivi').value,
+    mai_dire: document.getElementById('mai_dire').value,
+    esempio: document.getElementById('esempio').value,
+    firma: document.getElementById('firma').value,
+    firma_negativa: document.getElementById('firma_negativa').value,
+    tono_negativo: document.getElementById('tono_negativo').value,
+    contatto_neg: document.getElementById('contatto_neg').value,
+    tagline: document.getElementById('tagline').value,
+    staff: document.getElementById('staff').value,
+    gbp: document.getElementById('gbp').value,
+    note: document.getElementById('note').value,
+    timestamp: new Date().toISOString()
+  };
+}
+
+async function submitForm() {
+  if (!validateSection(5)) return;
+
+  const data = collectData();
+
+  // Webhook Make — sostituisci con il tuo URL
+  const WEBHOOK_URL = 'INSERISCI_URL_WEBHOOK_MAKE_QUI';
+
+  try {
+    document.querySelector('.btn-submit').textContent = '⏳ Invio in corso...';
+    document.querySelector('.btn-submit').disabled = true;
+
+    if (WEBHOOK_URL !== 'INSERISCI_URL_WEBHOOK_MAKE_QUI') {
+      await fetch(WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+    }
+
+    // Show success
+    document.getElementById('onboardingForm').style.display = 'none';
+    document.getElementById('successScreen').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  } catch(e) {
+    document.querySelector('.btn-submit').textContent = i18n[currentLang].btn_submit;
+    document.querySelector('.btn-submit').disabled = false;
+    alert('Errore nell\'invio. Riprova.');
+  }
+}
+
+// Init
+setLang('it');
+</script>
+
+</body>
+</html>
