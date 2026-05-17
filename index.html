@@ -372,7 +372,7 @@
     min-width: 100px;
   }
   .radio-option input { display: none; }
-  .radio-option label {
+  .radio-option span {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -387,7 +387,7 @@
     text-align: center;
     margin: 0;
   }
-  .radio-option input:checked + label {
+  .radio-option input:checked + span {
     border-color: var(--navy);
     background: rgba(27,58,107,0.05);
     color: var(--navy);
@@ -706,9 +706,9 @@
     <div class="field-card" id="fc-pronome">
       <label><span data-i18n="f_pronome">Come vi rivolgete ai clienti?</span><span class="required">*</span></label>
       <div class="radio-group">
-        <label class="radio-option"><input type="radio" name="pronome" value="tu" onchange="document.getElementById('pronome').value='tu'"><label data-i18n="p_tu">Tu (informale)</label></label>
-        <label class="radio-option"><input type="radio" name="pronome" value="lei" onchange="document.getElementById('pronome').value='lei'"><label data-i18n="p_lei">Lei (formale)</label></label>
-        <label class="radio-option"><input type="radio" name="pronome" value="voi" onchange="document.getElementById('pronome').value='voi'"><label data-i18n="p_voi">Voi (plurale)</label></label>
+        <label class="radio-option"><input type="radio" name="pronome" value="tu" onchange="document.getElementById('pronome').value='tu'"><span data-i18n="p_tu">Tu (informale)</span></label>
+        <label class="radio-option"><input type="radio" name="pronome" value="lei" onchange="document.getElementById('pronome').value='lei'"><span data-i18n="p_lei">Lei (formale)</span></label>
+        <label class="radio-option"><input type="radio" name="pronome" value="voi" onchange="document.getElementById('pronome').value='voi'"><span data-i18n="p_voi">Voi (plurale)</span></label>
       </div>
       <input type="hidden" id="pronome" />
       <div class="error-msg" data-i18n="err_required">Seleziona un'opzione</div>
@@ -768,9 +768,9 @@
     <div class="field-card" id="fc-tono_negativo">
       <label><span data-i18n="f_tono_neg">Come gestire le critiche?</span><span class="required">*</span></label>
       <div class="radio-group">
-        <label class="radio-option"><input type="radio" name="tono_neg" value="empatico" onchange="document.getElementById('tono_negativo').value='empatico'"><label data-i18n="tn_empatico">Empatico e personale</label></label>
-        <label class="radio-option"><input type="radio" name="tono_neg" value="diretto" onchange="document.getElementById('tono_negativo').value='diretto'"><label data-i18n="tn_diretto">Diretto e risolutivo</label></label>
-        <label class="radio-option"><input type="radio" name="tono_neg" value="formale" onchange="document.getElementById('tono_negativo').value='formale'"><label data-i18n="tn_formale">Professionale</label></label>
+        <label class="radio-option"><input type="radio" name="tono_neg" value="empatico" onchange="document.getElementById('tono_negativo').value='empatico'"><span data-i18n="tn_empatico">Empatico e personale</span></label>
+        <label class="radio-option"><input type="radio" name="tono_neg" value="diretto" onchange="document.getElementById('tono_negativo').value='diretto'"><span data-i18n="tn_diretto">Diretto e risolutivo</span></label>
+        <label class="radio-option"><input type="radio" name="tono_neg" value="formale" onchange="document.getElementById('tono_negativo').value='formale'"><span data-i18n="tn_formale">Professionale</span></label>
       </div>
       <input type="hidden" id="tono_negativo" />
       <div class="error-msg" data-i18n="err_required">Seleziona un'opzione</div>
@@ -1175,3 +1175,4 @@ setLang('it');
 
 </body>
 </html>
+
