@@ -1008,22 +1008,30 @@ function setLang(lang) {
   });
 }
 
-function addTag(event, type, max) {
-  if (event.key !== 'Enter') return;
-  event.preventDefault();
-  const input = document.getElementById(type + '-input');
-  const val = input.value.trim();
+function addTagValue(type, val, max) {
+  val = val.trim().replace(/,+$/, '').trim();
   if (!val) return;
   if (max && tags[type].length >= max) return;
-  if (tags[type].includes(val)) { input.value = ''; return; }
+  if (tags[type].includes(val)) return;
   tags[type].push(val);
   const wrap = document.getElementById(type + '-wrap');
+  const input = document.getElementById(type + '-input');
   const tag = document.createElement('span');
   tag.className = 'tag';
   tag.innerHTML = val + '<span class="tag-remove" onclick="removeTag(\'' + type + '\',\'' + val.replace(/'/g,"\'") + '\',this)">×</span>';
   wrap.insertBefore(tag, input);
-  input.value = '';
   document.getElementById(type).value = tags[type].join(', ');
+}
+
+function addTag(event, type, max) {
+  // Trigger on Enter or comma
+  if (event.key !== 'Enter' && event.key !== ',') return;
+  event.preventDefault();
+  const input = document.getElementById(type + '-input');
+  const val = input.value.trim().replace(/,+$/, '').trim();
+  if (!val) return;
+  addTagValue(type, val, max);
+  input.value = '';
 }
 
 function removeTag(type, val, el) {
@@ -1066,6 +1074,15 @@ function validateSection(n) {
     const fc = document.getElementById('fc-' + rule.id);
     let val = el ? el.value.trim() : '';
     let ok = true;
+
+    if (rule.type === 'tags') {
+      // Auto-aggiungi testo nel campo se l'utente non ha premuto Invio
+      const pendingInput = document.getElementById(rule.id + '-input');
+      if (pendingInput && pendingInput.value.trim()) {
+        addTagValue(rule.id, pendingInput.value.trim(), rule.id === 'aggettivi' ? 3 : undefined);
+        pendingInput.value = '';
+      }
+    }
 
     if (rule.type === 'email') {
       ok = val && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
@@ -1175,4 +1192,5 @@ setLang('it');
 
 </body>
 </html>
+
 
